@@ -1,0 +1,99 @@
+[
+    {
+      "trigger": "hola",
+      "type": "button",
+      "body": "¡Hola! 👋 Bienvenido. ¿Cómo podemos ayudarte hoy?",
+      "footer": "Equipo Rosbil",
+      "options": ["✅ servicios", "📅 agendar cita"],
+      "seed": "sed1",
+      "additional_actions": [
+        {
+          "type": "reaction",
+          "reaction": "🫡"
+        }
+      ]
+    },
+    {
+      "trigger": "servicios",
+      "type": "list",
+      "body": "Tenemos varias áreas de consulta para elegir. ¿Cuál de estos servicios te gustaría explorar?",
+      "footer": "Equipo Rosbil",
+      "options": ["Analítica Avanzada", "Migración Cloud", "Inteligencia de Negocio"],
+      "seed": "sed2",
+      "additional_actions": [
+        {
+          "type": "sticker",
+          "sticker_name": "perro_traje"
+        }
+      ]
+    },
+    {
+      "trigger": "inteligencia de negocio",
+      "type": "button",
+      "body":"Buenísima elección. ¿Te gustaría que te enviara un documento PDF con una introducción a nuestros métodos de Inteligencia de Negocio?",
+      "footer": "Equipo Rosbil",
+      "options": ["✅ Sí, envía el PDF.", "⛔ No, gracias"],
+      "seed": "sed3",
+      "additional_actions": []
+    },
+    {
+      "trigger": "sí, envía el pdf",
+      "type": "text",
+      "body": "Genial, por favor espera un momento.",
+      "footer": "Equipo Rosbil",
+      "options": [],
+      "seed": "sed4", 
+      "additional_actions": [
+        {
+          "type": "sticker",
+          "sticker_name": "pelfet",
+          "delay": 3
+        }, 
+        {
+          "type": "document",
+          "document_name": "Inteligencia de Negocio.pdf",
+          "text":  "Listo 👍🏻",
+          "url":"https://www.mrw.es/comuns/guia/portugalete.pdf",
+          "delay": 3
+        }, 
+        {
+          "type": "button",
+          "body": "¿Te gustaría programar una reunión con uno de nuestros especialistas para discutir estos servicios más a fondo?",
+          "options": ["✅ Sí, agenda reunión", "No, gracias."],
+          "seed": "sed4"
+        }
+      ]
+    }, 
+    {
+      "trigger": "sí, agenda reunión",
+      "type": "list",
+      "body": "Estupendo. Por favor, selecciona una fecha y hora para la reunión:",
+      "options": ["📅 10: mañana 10:00 AM", "📅 7 de junio, 2:00 PM", "📅 8 de junio, 4:00 PM"],
+      "seed": "sed5",
+      "additional_actions": []
+    },
+    {
+      "trigger": "7 de junio, 2:00 pm",
+      "type": "button",
+      "body": "Excelente, has seleccionado la reunión para el 7 de junio a las 2:00 PM. Te enviaré un recordatorio un día antes. ¿Necesitas ayuda con algo más hoy?",
+      "options": ["✅ Sí, por favor", "❌ No, gracias."],
+      "seed": "sed6",
+      "additional_actions": []
+    },
+    {
+      "trigger": "no, gracias.",
+      "type": "text",
+      "body": "Perfecto! No dudes en contactarnos si tienes más preguntas. Recuerda que también ofrecemos material gratuito para la comunidad. ¡Hasta luego! 😊",
+      "options": [],
+      "seed": "sed7",
+      "additional_actions": []
+    },  
+    {
+      "trigger": "not found",
+      "type": "text",
+      "body": "Lo siento, no entendí lo que dijiste. ¿Quieres que te ayude con alguna de estas opciones?",
+      "options": [],
+      "seed": "sed7",
+      "additional_actions": []
+    }
+  ]
