@@ -1,7 +1,17 @@
 import json
 
 from message_creation import buttonReply_Message, listReply_Message, text_Message, sticker_Message, document_Message, get_media_id  
+from data import templates_repository
 
+def markRead_Message(messageId):
+    data = json.dumps(
+        {
+            "messaging_product": "whatsapp",
+            "status": "read",
+            "message_id":  messageId
+        }
+    )
+    return data
 
 def process_message(message):
     typeMessage = message.get('type')
@@ -16,6 +26,7 @@ def process_message(message):
 
 def handle_message(template, number, messageId,
                      mensajes, footer):
+    print("messageId", messageId)
     message = None
     if template['type'] == 'text':
         message = text_Message(number, template['body'])
@@ -28,15 +39,15 @@ def handle_message(template, number, messageId,
                                                 template['options'], 
                                                 template['body'], 
                                                 footer, 
-                                                template['seed'], 
-                                                messageId)
+                                                template['seed']
+                                                )
     elif template['type'] == 'list':
         message = listReply_Message(number, 
                                             template['options'], 
                                             template['body'], 
-                                            footer, 
-                                            template['seed'], 
-                                            messageId)
+                                            footer,
+                                            template['seed'] 
+                                            )
     elif template['type'] == 'document':
         message = document_Message(number, 
                                             template['url'], 
@@ -45,17 +56,16 @@ def handle_message(template, number, messageId,
     if message:
         mensajes.append(message)
 
-def handle_template(template, number, messageId,
+def handle_template(template, number, message_id,
                      mensajes):
     footer = "Equipo Rosbil"
-    handle_message(template, number, messageId, mensajes, footer)
+    handle_message(template, number, message_id, mensajes, footer)
 
     for action in template['additional_actions']:
-        handle_message(action, number, messageId, mensajes, footer)
+        handle_message(action, number, message_id, mensajes, footer)
 
 def get_template_by_text(text):
-    with open('messages_templates.json', 'r', encoding='utf-8') as file:
-        templates = json.load(file)
+    templates = templates_repository.get_all_templates()
     template_not_found = None 
     for template in templates:
         if template['trigger'] in text:

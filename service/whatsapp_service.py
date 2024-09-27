@@ -17,5 +17,5 @@ def enviar_Mensaje_whatsapp(data):
             return 'mensaje enviado', 200
         else:
             return 'error al enviar mensaje', response.status_code
-    except Exception as e:
-        return e, 403
+    except requests.exceptions.RequestException as e:
+        return str(e), 403

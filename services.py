@@ -1,7 +1,6 @@
-import json
 import time
-from message_processing import get_template_by_text, handle_template, process_message
-from whatsapp_service import enviar_Mensaje_whatsapp
+from messages.message_processing import get_template_by_text, handle_template, process_message, markRead_Message
+from service.whatsapp_service import enviar_Mensaje_whatsapp
 
 def obtener_Mensaje_whatsapp(message):
     if 'type' not in message :
@@ -9,16 +8,6 @@ def obtener_Mensaje_whatsapp(message):
         return text
 
     return process_message(message)
-
-def markRead_Message(messageId):
-    data = json.dumps(
-        {
-            "messaging_product": "whatsapp",
-            "status": "read",
-            "message_id":  messageId
-        }
-    )
-    return data
 
 def administrar_chatbot(text, number, messageId, name):
     text = text.lower()  # mensaje que envio el usuario
@@ -37,15 +26,6 @@ def administrar_chatbot(text, number, messageId, name):
         time.sleep(item.get('delay', 0))
 
 def replace_start(s):
-    """
-    Reemplaza el prefijo del número de WhatsApp si comienza con '521' o '549'.
-    
-    Args:
-        s (str): El número de teléfono a modificar.
-    
-    Returns:
-        str: El número de teléfono modificado.
-    """
     number = s[3:]
     if s.startswith("521"):
         return "52" + number
@@ -53,4 +33,3 @@ def replace_start(s):
         return "54" + number
     else:
         return s
-

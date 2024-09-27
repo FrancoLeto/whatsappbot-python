@@ -70,6 +70,7 @@
       "body": "Estupendo. Por favor, selecciona una fecha y hora para la reunión:",
       "options": ["📅 10: mañana 10:00 AM", "📅 7 de junio, 2:00 PM", "📅 8 de junio, 4:00 PM"],
       "seed": "sed5",
+      "footer": "Equipo Rosbil",
       "additional_actions": []
     },
     {
@@ -78,6 +79,7 @@
       "body": "Excelente, has seleccionado la reunión para el 7 de junio a las 2:00 PM. Te enviaré un recordatorio un día antes. ¿Necesitas ayuda con algo más hoy?",
       "options": ["✅ Sí, por favor", "❌ No, gracias."],
       "seed": "sed6",
+      "footer": "Equipo Rosbil",
       "additional_actions": []
     },
     {
@@ -86,6 +88,7 @@
       "body": "Perfecto! No dudes en contactarnos si tienes más preguntas. Recuerda que también ofrecemos material gratuito para la comunidad. ¡Hasta luego! 😊",
       "options": [],
       "seed": "sed7",
+      "footer": "Equipo Rosbil",
       "additional_actions": []
     },  
     {
@@ -94,6 +97,7 @@
       "body": "Lo siento, no entendí lo que dijiste. ¿Quieres que te ayude con alguna de estas opciones?",
       "options": [],
       "seed": "sed7",
+      "footer": "Equipo Rosbil",
       "additional_actions": []
     }
   ]

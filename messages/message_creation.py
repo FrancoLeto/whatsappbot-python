@@ -4,7 +4,7 @@ import sett
 def text_Message(number, text):
     return  create_message(number, "text", text)
 
-def buttonReply_Message(number, options, body, footer, sedd,messageId):
+def buttonReply_Message(number, options, body, footer, sedd):
     buttons = []
     for i, option in enumerate(options):
         buttons.append(
@@ -30,7 +30,7 @@ def buttonReply_Message(number, options, body, footer, sedd,messageId):
             }
     return create_message(number, "interactive", content)
 
-def listReply_Message(number, options, body, footer, sedd,messageId):
+def listReply_Message(number, options, body, footer, sedd):
     rows = []
     for i, option in enumerate(options):
         rows.append(
@@ -89,12 +89,6 @@ def get_media_id(media_name, media_type):
     media_id = ""
     if media_type == "sticker":
         media_id = sett.stickers.get(media_name, None)
-    # elif media_type == "image":
-    #     media_id = sett.images.get(media_name, None)
-    # elif media_type == "video":
-    #     media_id = sett.videos.get(media_name, None)
-    # elif media_type == "audio":
-    #     media_id = sett.audio.get(media_name, None)
     return media_id
 
 def replyReaction_Message(number, messageId, emoji):
