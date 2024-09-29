@@ -20,4 +20,8 @@ def create_database():
     conn.commit()
     conn.close()
 
-create_database()
+try:
+    create_database()
+except Exception as e:
+    print(e)
+    print("Error al crear la base de datos")

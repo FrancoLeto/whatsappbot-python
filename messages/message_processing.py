@@ -1,6 +1,6 @@
 import json
 
-from message_creation import buttonReply_Message, listReply_Message, text_Message, sticker_Message, document_Message, get_media_id  
+from messages.message_creation import buttonReply_Message, listReply_Message, text_Message, sticker_Message, document_Message, get_media_id  
 from data import templates_repository
 
 def markRead_Message(messageId):
@@ -15,7 +15,12 @@ def markRead_Message(messageId):
 
 def process_message(message):
     typeMessage = message.get('type')
-    if typeMessage == 'interactive' and message['interactive']['type'] == 'list_reply':
+
+    if typeMessage == 'text':
+        text = message['text']['body']
+    elif typeMessage == 'button':
+        text = message['button']['text']
+    elif typeMessage == 'interactive' and message['interactive']['type'] == 'list_reply':
         text = message['interactive']['list_reply']['title']
     elif typeMessage == 'interactive' and message['interactive']['type'] == 'button_reply':
         text = message['interactive']['button_reply']['title']
@@ -34,11 +39,12 @@ def handle_message(template, number, messageId,
         sticker_id = get_media_id(template['sticker_name'], 'sticker')
         if sticker_id:
             message = sticker_Message(number, sticker_id)
-    elif template['type'] == 'button':
+    elif template['type'] == 'button':  
+        print("template['options']", template['options'])
         message = buttonReply_Message(number, 
                                                 template['options'], 
                                                 template['body'], 
-                                                footer, 
+                                                footer,
                                                 template['seed']
                                                 )
     elif template['type'] == 'list':
@@ -53,6 +59,7 @@ def handle_message(template, number, messageId,
                                             template['url'], 
                                             template['text'], 
                                             template['document_name'])
+    print("handle_message() - message: ", message)  
     if message:
         mensajes.append(message)
 
@@ -66,11 +73,13 @@ def handle_template(template, number, message_id,
 
 def get_template_by_text(text):
     templates = templates_repository.get_all_templates()
-    template_not_found = None 
+    template_not_found = None
     for template in templates:
         if template['trigger'] in text:
+            print("get_template_by_text() - template: ",template)
             return template
         elif template['trigger'] == 'not found':
             template_not_found = template
 
+    print("get_template_by_text() - template_not_found: ", template_not_found)
     return template_not_found

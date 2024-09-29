@@ -13,17 +13,15 @@ def administrar_chatbot(text, number, messageId, name):
     text = text.lower()  # mensaje que envio el usuario
     mensajes = []  # Cambiado de 'list' a 'mensajes'
     print("mensaje del usuario: ",text)
-
     mark_read = markRead_Message(messageId)
     mensajes.append(mark_read)
-    time.sleep(2)
-
     template_encontrado = get_template_by_text(text)
     handle_template(template_encontrado, number, messageId, mensajes)
 
     for item in mensajes:
         enviar_Mensaje_whatsapp(item)  # Corregido: alineación adecuada
-        time.sleep(item.get('delay', 0))
+        if 'delay' in item:
+            time.sleep(item['delay'])
 
 def replace_start(s):
     number = s[3:]
