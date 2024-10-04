@@ -16,6 +16,18 @@ class Template(Base):
     seed = Column(String)
     additional_actions = Column(JSON)
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'trigger': self.trigger,
+            'type': self.type,
+            'body': self.body,
+            'footer': self.footer,
+            'options': self.options,
+            'seed': self.seed,
+            'additional_actions': self.additional_actions
+        }
+
 def get_engine():
     script_dir = os.path.dirname(__file__)
     db_path = os.path.join(script_dir, 'templates.db')
@@ -45,7 +57,7 @@ def read_template(template_id):
     session = get_session()
     template = session.query(Template).filter(Template.id == template_id).one_or_none()
     session.close()
-    return template.__dict__ if template else None
+    return template.to_dict() if template else None
 
 def update_template(template_id, updated_template):
     session = get_session()
@@ -73,4 +85,4 @@ def get_all_templates():
     session = get_session()
     templates = session.query(Template).all()
     session.close()
-    return [template.__dict__ for template in templates]
+    return [template.to_dict() for template in templates]
